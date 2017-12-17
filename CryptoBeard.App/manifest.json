@@ -1,0 +1,15 @@
+﻿{
+    "name": "CryptoBeard",
+    "description": "Quick analysis and conversion of your crypto portfolio",
+    "version": "1.0",
+    "manifest_version": 2,
+    "browser_action": {
+        "default_icon": "/app/assets/crypto-beard-16.png",
+        "default_popup": "/app/index.html"
+    },
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}

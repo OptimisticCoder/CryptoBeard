@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+html,
+body {
+    font-family: 'DejaVu Sans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+}
+
+a,
+a:visited,
+a:focus
+{
+    color:#9397cd;
+    text-decoration:none;
+}
+
+a:hover {
+    color:#8387bd;
+    text-decoration:none;
+}
+
+h4 {
+    padding:0;
+    margin:0 0 20px 0;
+}
+
+.outer-container {
+    width:600px;
+    height:400px;
+    background-color:#505061;
+    border-radius:5px;
+    padding-top:5px;
+}
+
+.top20 {
+    margin-top:20px;
+}
+
+.nav-tabs>li.active>a, 
+.nav-tabs>li.active>a:focus, 
+.nav-tabs>li.active>a:hover {
+    background-color:#9397cd;
+    color:white;
+    font-size:11px;
+}
+
+.nav-tabs>li>a {
+    border-radius:initial;
+}
+
+.nav>li>a {
+    padding: 3px 10px;
+}
+
+.nav-tabs>li>a:hover,
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+    border:none;
+}
+
+.nav-tabs {
+    border-bottom: 1px solid #9397cd;
+}
+
+.tab-pane {
+    min-height:120px;
+}
+
+.add-link {
+    padding: 5px 10px 0 0;
+    font-size:11px;
+}
+
+.no-config {
+    padding:120px 10px 10px 10px;
+    text-align:center;
+}
+
+.form-content {
+    padding:10px 30px;
+}
