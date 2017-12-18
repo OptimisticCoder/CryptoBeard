@@ -11,11 +11,14 @@
             <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()" *ngIf="screenMode != 1">
                 <span class="glyphicon glyphicon-plus-sign"></span> Add
             </a>
-            <div class="no-config" *ngIf="screenMode != 1">
+            <div class="no-config" *ngIf="screenMode == 0 && portfolio !== null && portfolio.assets.length == 0">
                 <p class="top20"><i>No portfolio configurations</i></p>
                 <p>
                     <strong><a href="javascript:void(0)" (click)="addItem()">Configure your portfolio</a></strong>
                 </p>
+            </div>
+            <div class="no-config" *ngIf="screenMode == 0 && portfolio !== null && portfolio.assets.length > 0">
+                <p class="top20" *ngFor="let a of portfolio.assets"><i>{{a.id}}</i></p>
             </div>
 
             <div class="add-item" *ngIf="screenMode == 1">
@@ -29,20 +32,20 @@
                     <form>
                         <div class="form-group">
                             <label for="drpCurrency">Currency</label>
-                            <select id="drpCurrency" class="form-control">
-                                <option value="">[ select a currency ]</option>
-                                <option *ngFor="let c of data" [value]="c.id">{{c.name}}</option>
+                            <select id="drpCurrency" class="form-control" [(ngModel)]="selectedCurrencyId" [ngModelOptions]="{standalone: true}">
+                                <option [value]="null">[ select a currency ]</option>
+                                <option *ngFor="let c of data" [value]="c.id"> {{c.name}} </option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="txtUnits">Units</label>
-                            <input type="number" class="form-control" id="txtUnits" placeholder="Units of the currency aquired">
+                            <input type="number" class="form-control" id="txtUnits" [(ngModel)]="assetUnits" placeholder="Units of the currency aquired" [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="form-group">
                             <label for="txtCost">Cost</label>
-                            <input type="number" class="form-control" id="txtCost" placeholder="Amount paid in dollars">
+                            <input type="number" class="form-control" id="txtCost" [(ngModel)]="assetCost" placeholder="Amount paid in dollars" [ngModelOptions]="{standalone: true}">
                         </div>
-                        <a href="javascript:void(0)" class="btn btn-primary">Add Asset</a>
+                        <a href="javascript:void(0)" class="btn btn-primary" (click)="addAsset()">Add Asset</a>
                     </form>
                 </div>
             </div>

@@ -1,14 +1,15 @@
 ﻿import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
+import { CoinData } from '../models/coindata.model';
 
 @Injectable()
 export class CoinMarketCapService {
     constructor(private http: Http) { }
 
-    getCoinData(): Promise<Response> {
+    getCoinData(): Promise<CoinData[]> {
         return this.http.get('https://api.coinmarketcap.com/v1/ticker/')
             .toPromise()
-            .then(response => JSON.parse(response.text()) as Response)
+            .then(response => JSON.parse(response.text()) as CoinData[])
             .catch(this.handleError);
     }
 
