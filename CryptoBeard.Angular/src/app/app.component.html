@@ -8,17 +8,27 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="portfolio">
-            <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()" *ngIf="screenMode != 1">
-                <span class="glyphicon glyphicon-plus-sign"></span> Add
-            </a>
-            <div class="no-config" *ngIf="screenMode == 0 && portfolio !== null && portfolio.assets.length == 0">
+            <div class="clearfix">
+                <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()" *ngIf="screenMode != 1">
+                    <span class="glyphicon glyphicon-plus-sign"></span> Add
+                </a>
+            </div>
+            <div class="no-config" *ngIf="screenMode == 0 && portfolio !== null && portfolio.length == 0">
                 <p class="top20"><i>No portfolio configurations</i></p>
                 <p>
                     <strong><a href="javascript:void(0)" (click)="addItem()">Configure your portfolio</a></strong>
                 </p>
             </div>
-            <div class="no-config" *ngIf="screenMode == 0 && portfolio !== null && portfolio.assets.length > 0">
-                <p class="top20" *ngFor="let a of portfolio.assets"><i>{{a.id}}</i></p>
+            <div class="no-config" *ngIf="screenMode == 0 && viewData == null">
+                <p class="top20">Loading latest coin data ...</p>
+            </div>
+            <div class="" *ngIf="screenMode == 0 && viewData != null && viewData.length > 0">
+                <div class="asset" *ngFor="let a of viewData">
+                    {{a.coinData.name}} ${{a.coinData.price_usd}}
+                    <div *ngFor="let b of a.holdings">
+                        {{b.units}} bought for ${{b.cost}}
+                    </div>
+                </div>
             </div>
 
             <div class="add-item" *ngIf="screenMode == 1">
@@ -34,7 +44,7 @@
                             <label for="drpCurrency">Currency</label>
                             <select id="drpCurrency" class="form-control" [(ngModel)]="selectedCurrencyId" [ngModelOptions]="{standalone: true}">
                                 <option [value]="null">[ select a currency ]</option>
-                                <option *ngFor="let c of data" [value]="c.id"> {{c.name}} </option>
+                                <option *ngFor="let c of coinData" [value]="c.id"> {{c.name}} </option>
                             </select>
                         </div>
                         <div class="form-group">

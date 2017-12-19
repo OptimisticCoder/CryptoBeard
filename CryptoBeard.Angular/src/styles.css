@@ -29,7 +29,6 @@ h4 {
     height:400px;
     background-color:#505061;
     border-radius:5px;
-    padding-top:5px;
 }
 
 .top20 {
@@ -42,6 +41,8 @@ h4 {
     background-color:#9397cd;
     color:white;
     font-size:11px;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
 }
 
 .nav-tabs>li>a {
@@ -77,4 +78,8 @@ h4 {
 
 .form-content {
     padding:10px 30px;
+}
+
+.asset {
+    padding-left:20px;
 }
