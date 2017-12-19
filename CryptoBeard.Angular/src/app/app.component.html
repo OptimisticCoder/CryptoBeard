@@ -26,7 +26,7 @@
                 <div class="asset" *ngFor="let a of viewData">
                     {{a.coinData.name}} ${{a.coinData.price_usd}}
                     <div *ngFor="let b of a.holdings">
-                        {{b.units}} bought for ${{b.cost}}
+                        {{b.units}} {{a.coinData.symbol}} bought for ${{b.cost}}
                     </div>
                 </div>
             </div>
