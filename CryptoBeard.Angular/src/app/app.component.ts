@@ -26,7 +26,7 @@ export class AppComponent {
 
         let ns = this;
         chrome.storage.sync.get('portfolio', function (items: any) {
-            if (items == null || typeof items == 'undefined')
+            if (items == null || typeof items == 'undefined'|| typeof items.assets == 'undefined')
                 ns.portfolio = new Portfolio();
             else
                 ns.portfolio = items.portfolio;
