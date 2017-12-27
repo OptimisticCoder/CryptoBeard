@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/css?family=Righteous" rel="stylesheet">
+
 <div class="outer-container">
 
     <!-- Nav tabs -->
@@ -8,7 +10,7 @@
     <!-- Tab panes -->
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="portfolio">
-            <div class="clearfix">
+            <div class="clearfix top-button">
                 <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()" *ngIf="screenMode != 1">
                     <span class="glyphicon glyphicon-plus-sign"></span> Add
                 </a>
@@ -23,11 +25,96 @@
                 <p class="top20">Loading latest coin data ...</p>
             </div>
             <div class="" *ngIf="screenMode == 0 && viewData != null && viewData.length > 0">
+                <div class="asset">
+                    <h4><span class="grey">Overview</span></h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="grey">Total Value</th>
+                                <th class="grey">Total Invested</th>
+                                <th class="grey"></th>
+                                <th class="grey">Total Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="summary-column">
+                                    {{totalValue | currency:'USD'}}
+                                </td>
+                                <td class="summary-column">
+                                    {{totalInvested | currency:'USD'}}
+                                </td>
+                                <td class="summary-column">
+                                </td>
+                                <td class="summary-column">
+                                    {{totalProfit | currency:'USD'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
                 <div class="asset" *ngFor="let a of viewData">
-                    {{a.coinData.name}} ${{a.coinData.price_usd}}
-                    <div *ngFor="let b of a.holdings">
-                        {{b.units}} {{a.coinData.symbol}} bought for ${{b.cost}}
-                    </div>
+                    <h4><span class="lightblue">{{a.coinData.name}}</span> <small class="right20 pull-right lightblue">RANKED #{{a.coinData.rank}}</small></h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="grey">Last Hour</th>
+                                <th class="grey">24 Hours</th>
+                                <th class="grey">7 Days</th>
+                                <th class="grey">Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="summary-column {{a.coinData.percent_change_1h > 0 ? 'green' : 'red' }}">
+                                    {{a.coinData.percent_change_1h > 0 ? '+' : ''}}{{a.coinData.percent_change_1h}}%
+                                </td>
+                                <td class="summary-column {{a.coinData.percent_change_24h > 0 ? 'green' : 'red' }}">
+                                    {{a.coinData.percent_change_24h > 0 ? '+' : ''}}{{a.coinData.percent_change_24h}}%
+                                </td>
+                                <td class="summary-column {{a.coinData.percent_change_7d > 0 ? 'green' : 'red' }}">
+                                    {{a.coinData.percent_change_7d > 0 ? '+' : ''}}{{a.coinData.percent_change_7d}}%
+                                </td>
+                                <td class="summary-column">
+                                    {{a.coinData.price_usd | currency:'USD'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <table class="table lower">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Units</th>
+                                <th>Total Cost</th>
+                                <th>Value</th>
+                                <th>Profit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let b of a.holdings">
+                                <td>
+                                    <a href="javascript:void(0)" title="Remove">
+                                        <span class="glyphicon glyphicon-remove-circle"></span>
+                                    </a>
+                                </td>
+                                <td class="summary-column">
+                                    {{b.units}} {{a.coinData.symbol}}
+                                </td>
+                                <td class="summary-column">
+                                    {{b.cost | currency:'USD'}}
+                                </td>
+                                <td class="summary-column">
+                                    {{(b.units * a.coinData.price_usd) | currency:'USD'}}
+                                </td>
+                                <td class="summary-column {{(b.units * a.coinData.price_usd) - b.cost > 0 ? 'green' : 'red' }}">
+                                    {{(b.units * a.coinData.price_usd) - b.cost > 0 ? '+' : '-' }}{{(b.units * a.coinData.price_usd) - b.cost | currency:'USD'}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -52,7 +139,7 @@
                             <input type="number" class="form-control" id="txtUnits" [(ngModel)]="assetUnits" placeholder="Units of the currency aquired" [ngModelOptions]="{standalone: true}">
                         </div>
                         <div class="form-group">
-                            <label for="txtCost">Cost</label>
+                            <label for="txtCost">Total Cost (USD)</label>
                             <input type="number" class="form-control" id="txtCost" [(ngModel)]="assetCost" placeholder="Amount paid in dollars" [ngModelOptions]="{standalone: true}">
                         </div>
                         <a href="javascript:void(0)" class="btn btn-primary" (click)="addAsset()">Add Asset</a>

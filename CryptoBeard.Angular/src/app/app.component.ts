@@ -19,6 +19,9 @@ export class AppComponent implements OnInit {
     selectedCurrencyId: string = null;
     assetCost: number = 0;
     assetUnits: number = 0;
+    totalProfit: number = 0;
+    totalInvested: number = 0;
+    totalValue: number = 0;
 
     constructor(private coinService: CoinMarketCapService, private changeDetector: ChangeDetectorRef) {
     }
@@ -64,7 +67,7 @@ export class AppComponent implements OnInit {
     ngOnInit(): void {
         let ns = this;
         chrome.storage.sync.get('portfolio', function (items: any) {
-            if (items == null || typeof items == 'undefined')
+            if (items == null || typeof items == 'undefined' || typeof items.portfolio == 'undefined')
                 ns.portfolio = [];
             else if (typeof items.portfolio.assets != 'undefined')
                 ns.portfolio = items.portfolio.assets;
@@ -76,19 +79,25 @@ export class AppComponent implements OnInit {
 
                 ns.viewData = [];
 
-                for (let i = 0; i < ns.portfolio.length; ++i)
-                {
-                    for (let j = 0; j < ns.coinData.length; ++j) {
-                        if (ns.coinData[j].id == ns.portfolio[i].id)
-                        {
-                            let asset = new AssetView();
-                            asset.coinData = ns.coinData[j];
-                            asset.holdings = ns.portfolio[i].holdings;
-                            ns.viewData.push(asset);
-                            break;
+                if (typeof ns.portfolio != 'undefined')
+                    for (let i = 0; i < ns.portfolio.length; ++i) {
+                        for (let j = 0; j < ns.coinData.length; ++j) {
+                            if (ns.coinData[j].id == ns.portfolio[i].id) {
+                                let asset = new AssetView();
+                                asset.coinData = ns.coinData[j];
+                                asset.holdings = ns.portfolio[i].holdings;
+                                ns.viewData.push(asset);
+
+                                for (let k = 0; k < ns.portfolio[i].holdings.length; ++k) {
+                                    ns.totalInvested += ns.portfolio[i].holdings[k].cost;
+                                    ns.totalValue += ((ns.portfolio[i].holdings[k].units * asset.coinData.price_usd) - ns.portfolio[i].holdings[k].cost);
+                                }
+                                break;
+                            }
                         }
                     }
-                }
+
+                ns.totalProfit = ns.totalValue - ns.totalInvested;
                 ns.changeDetector.detectChanges();
             });
         });

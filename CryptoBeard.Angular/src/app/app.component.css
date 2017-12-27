@@ -1,0 +1,23 @@
+
+.table>thead>tr>th {
+    border-bottom:none;
+    font-size: 10px;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.table>tbody>tr>td {
+    border-top:none;
+}
+
+.summary-column {
+    width:25%;
+}
+
+.green {
+    color:lightgreen;
+}
+
+.red {
+    color:lightcoral;
+}

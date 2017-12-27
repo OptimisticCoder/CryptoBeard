@@ -6,6 +6,9 @@ body {
     color: white;
 }
 
+body {
+}
+
 a,
 a:visited,
 a:focus
@@ -21,18 +24,33 @@ a:hover {
 
 h4 {
     padding:0;
-    margin:0 0 20px 0;
+    margin:initial;
+    font-family: 'Righteous', cursive;
+    text-transform:uppercase;
 }
 
 .outer-container {
     width:600px;
-    height:400px;
     background-color:#505061;
     border-radius:5px;
+    height:100%;
 }
 
 .top20 {
     margin-top:20px;
+}
+
+.right20 {
+    margin-right:20px;
+}
+
+.table {
+    margin-top:10px;
+    margin-bottom:10px;
+}
+
+.table.lower {
+    margin-top:5px;
 }
 
 .nav-tabs>li.active>a, 
@@ -60,10 +78,16 @@ h4 {
 
 .nav-tabs {
     border-bottom: 1px solid #9397cd;
+    box-shadow: inset #404040 2px -3px 0px 0px;
 }
 
 .tab-pane {
     min-height:120px;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+{
+    padding:0;
 }
 
 .add-link {
@@ -80,6 +104,27 @@ h4 {
     padding:10px 30px;
 }
 
+.top-button {
+    padding-bottom:2px;
+    margin-bottom:1px;
+    border-bottom:solid 2px #404040;
+}
+
 .asset {
     padding-left:20px;
+    padding-top:5px;
+    border-top:solid 1px #9397cd;
+    border-bottom:solid 2px #404040;
+    margin-bottom:1px;
+}
+.asset:last-child {
+    border-bottom:none;
+}
+
+.lightblue {
+    color:#9397cd;
+}
+
+.grey {
+    color:#999;
 }
