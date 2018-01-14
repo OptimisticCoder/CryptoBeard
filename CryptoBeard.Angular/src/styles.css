@@ -34,6 +34,7 @@ h4 {
     background-color:#505061;
     border-radius:5px;
     height:100%;
+    min-height:400px;
 }
 
 .top20 {
@@ -127,4 +128,29 @@ h4 {
 
 .grey {
     color:#999;
+}
+
+.remove {
+    margin: 1px 4px 0 0;
+    float: left;
+}
+
+.overlay {
+    background-color:rgba(0,0,0,0.6);
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    bottom:0;
+}
+
+.cb-modal {
+    background-color:rgba(255,255,255,0.6);
+    position:fixed;
+    left:0;
+    top:0;
+    right:0;
+    margin:60px 20%;
+    border-radius:10px;
+    color:#404040;
 }

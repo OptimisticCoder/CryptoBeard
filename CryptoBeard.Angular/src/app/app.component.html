@@ -11,7 +11,7 @@
     <div class="tab-content">
         <div role="tabpanel" class="tab-pane active" id="portfolio">
             <div class="clearfix top-button">
-                <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()" *ngIf="screenMode != 1">
+                <a class="pull-right add-link" href="javascript:void(0)" (click)="addItem()">
                     <span class="glyphicon glyphicon-plus-sign"></span> Add
                 </a>
             </div>
@@ -21,10 +21,10 @@
                     <strong><a href="javascript:void(0)" (click)="addItem()">Configure your portfolio</a></strong>
                 </p>
             </div>
-            <div class="no-config" *ngIf="screenMode == 0 && viewData == null">
+            <div class="no-config" *ngIf="viewData == null">
                 <p class="top20">Loading latest coin data ...</p>
             </div>
-            <div class="" *ngIf="screenMode == 0 && viewData != null && viewData.length > 0">
+            <div class="" *ngIf="viewData != null && viewData.length > 0">
                 <div class="asset">
                     <h4><span class="grey">Overview</span></h4>
                     <table class="table">
@@ -96,7 +96,7 @@
                         <tbody>
                             <tr *ngFor="let b of a.holdings">
                                 <td>
-                                    <a href="javascript:void(0)" title="Remove">
+                                    <a href="javascript:void(0)" title="Remove" class="remove" (click)="remove(a, b)">
                                         <span class="glyphicon glyphicon-remove-circle"></span>
                                     </a>
                                 </td>
@@ -117,36 +117,37 @@
                     </table>
                 </div>
             </div>
-
-            <div class="add-item" *ngIf="screenMode == 1">
-                <div class="clearfix">
-                    <a class="pull-right add-link" href="javascript:void(0)" (click)="cancelAddItem()">
-                        <span class="glyphicon glyphicon glyphicon-circle-arrow-left"></span> Cancel
-                    </a>
-                </div>
-                <div class="form-content">
-                    <h4>Add an asset to track</h4>
-                    <form>
-                        <div class="form-group">
-                            <label for="drpCurrency">Currency</label>
-                            <select id="drpCurrency" class="form-control" [(ngModel)]="selectedCurrencyId" [ngModelOptions]="{standalone: true}">
-                                <option [value]="null">[ select a currency ]</option>
-                                <option *ngFor="let c of coinData" [value]="c.id"> {{c.name}} </option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="txtUnits">Units</label>
-                            <input type="number" class="form-control" id="txtUnits" [(ngModel)]="assetUnits" placeholder="Units of the currency aquired" [ngModelOptions]="{standalone: true}">
-                        </div>
-                        <div class="form-group">
-                            <label for="txtCost">Total Cost (USD)</label>
-                            <input type="number" class="form-control" id="txtCost" [(ngModel)]="assetCost" placeholder="Amount paid in dollars" [ngModelOptions]="{standalone: true}">
-                        </div>
-                        <a href="javascript:void(0)" class="btn btn-primary" (click)="addAsset()">Add Asset</a>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
-
+</div>
+<div class="overlay" *ngIf="screenMode == 1 || screenMode == 2"></div>
+<div class="cb-modal" *ngIf="screenMode == 1">
+    <div class="form-content">
+        <h4>Add an asset to track</h4>
+        <form>
+            <div class="form-group">
+                <label for="drpCurrency">Currency</label>
+                <select id="drpCurrency" class="form-control" [(ngModel)]="selectedCurrencyId" [ngModelOptions]="{standalone: true}">
+                    <option [value]="null">[ select a currency ]</option>
+                    <option *ngFor="let c of coinData" [value]="c.id"> {{c.name}} </option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="txtUnits">Units</label>
+                <input type="number" class="form-control" id="txtUnits" [(ngModel)]="assetUnits" placeholder="Units of the currency aquired" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="form-group">
+                <label for="txtCost">Total Cost (USD)</label>
+                <input type="number" class="form-control" id="txtCost" [(ngModel)]="assetCost" placeholder="Amount paid in dollars" [ngModelOptions]="{standalone: true}">
+            </div>
+            <a href="javascript:void(0)" class="btn btn-primary" (click)="addAsset()">Add Asset</a>
+            <a href="javascript:void(0)" class="btn btn-secondary" (click)="cancelAddItem()">Cancel</a>
+        </form>
+    </div>
+</div>
+<div class="cb-modal" *ngIf="screenMode == 2">
+    <h4>Remove holding</h4>
+    <p>
+        Are you sure you want to delete this row?
+    </p>
 </div>

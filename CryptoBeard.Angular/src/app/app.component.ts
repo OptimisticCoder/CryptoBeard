@@ -64,6 +64,10 @@ export class AppComponent implements OnInit {
         this.screenMode = 0;
     }
 
+    remove(toDelete: any, parentAsset: any): void {
+        this.screenMode = 2;
+    }
+
     ngOnInit(): void {
         let ns = this;
         chrome.storage.sync.get('portfolio', function (items: any) {
